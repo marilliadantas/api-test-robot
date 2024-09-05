@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.2 on win32)" generated="2024-09-05T11:24:19.044234" rpa="false" schemaversion="5">
+<suite id="s1" name="Login" source="C:\Users\Marillia\Desktop\api-test-robot\tests\login.robot">
+<kw name="Connect api" owner="services" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-09-05T11:24:19.179490" level="INFO">Creating Session using : alias=apiQA, url=https://api-desafio-qa.onrender.com, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>apiQA</arg>
+<arg>${BASE_URL}</arg>
+<arg>${HEADERS_LOGIN}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-09-05T11:24:19.178444" elapsed="0.001046"/>
+</kw>
+<arg>/login</arg>
+<status status="PASS" start="2024-09-05T11:24:19.178444" elapsed="0.001046"/>
+</kw>
+<test id="s1-t1" name="CT01: Login - Success" line="6">
+<kw name="Enter username and password" owner="login">
+<kw name="Log in" owner="services">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-09-05T11:24:19.180453" level="INFO">${login} = {}</msg>
+<var>${login}</var>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-09-05T11:24:19.180453" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${username}&quot; != 'None'">
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${login}</arg>
+<arg>username</arg>
+<arg>${username}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2024-09-05T11:24:19.180453" elapsed="0.001001"/>
+</kw>
+<status status="PASS" start="2024-09-05T11:24:19.180453" elapsed="0.001001"/>
+</branch>
+<status status="PASS" start="2024-09-05T11:24:19.180453" elapsed="0.001001"/>
+</if>
+<if>
+<branch type="IF" condition="&quot;${password}&quot; != &quot;None&quot;">
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${login}</arg>
+<arg>password</arg>
+<arg>${password}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2024-09-05T11:24:19.181454" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2024-09-05T11:24:19.181454" elapsed="0.000000"/>
+</branch>
+<status status="PASS" start="2024-09-05T11:24:19.181454" elapsed="0.000000"/>
+</if>
+<return>
+<value>${login}</value>
+<status status="PASS" start="2024-09-05T11:24:19.181454" elapsed="0.000000"/>
+</return>
+<msg time="2024-09-05T11:24:19.181454" level="INFO">${bodyLogin} = {'username': 'admin', 'password': 'password'}</msg>
+<var>${bodyLogin}</var>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<status status="PASS" start="2024-09-05T11:24:19.180453" elapsed="0.001001"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-09-05T11:24:19.181454" level="INFO">{'username': 'admin', 'password': 'password'}</msg>
+<arg>${bodyLogin}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-09-05T11:24:19.181454" elapsed="0.000999"/>
+</kw>
+<kw name="Post in" owner="services">
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-09-05T11:24:19.870657" level="INFO">POST Request : url=https://api-desafio-qa.onrender.com/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '45'} 
+ body=b'{"username": "admin", "password": "password"}' 
+ </msg>
+<msg time="2024-09-05T11:24:19.870657" level="INFO">POST Response : url=https://api-desafio-qa.onrender.com/login 
+ status=201, reason=Created 
+ headers={'Date': 'Thu, 05 Sep 2024 14:24:18 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'CF-Ray': '8be6e1d179fcae90-GRU', 'CF-Cache-Status': 'DYNAMIC', 'ETag': 'W/"b6-fKwHs9deW/gfPdHicTF3orD6msg"', 'Vary': 'Accept-Encoding', 'rndr-id': '9d327b91-6ec9-4856', 'x-powered-by': 'Express', 'x-render-origin-server': 'Render', 'Server': 'cloudflare', 'alt-svc': 'h3=":443"; ma=86400'} 
+ body={"token":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcyNTU0NjI1OCwiZXhwIjoxNzI1NTQ5ODU4fQ.kLXyZqZI-EfaHILXzS7wOHg94TMcXo1o5YznPxRxeYc"} 
+ </msg>
+<msg time="2024-09-05T11:24:19.870657" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${BASE_URL}${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${HEADERS_LOGIN}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-09-05T11:24:19.182453" elapsed="0.688204"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2024-09-05T11:24:19.870657" elapsed="0.000000"/>
+</return>
+<msg time="2024-09-05T11:24:19.870657" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>/login</arg>
+<arg>${bodyLogin}</arg>
+<status status="PASS" start="2024-09-05T11:24:19.182453" elapsed="0.688204"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2024-09-05T11:24:19.871695" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2024-09-05T11:24:19.870657" elapsed="0.001038"/>
+</kw>
+<arg>admin</arg>
+<arg>password</arg>
+<status status="PASS" start="2024-09-05T11:24:19.179490" elapsed="0.692205"/>
+</kw>
+<kw name="API should return status code" owner="login">
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-09-05T11:24:19.872691" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2024-09-05T11:24:19.872691" level="FAIL">201 != 20</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>${statusCode}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="FAIL" start="2024-09-05T11:24:19.871695" elapsed="0.000996">201 != 20</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>${RESPONSE.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2024-09-05T11:24:19.872691" elapsed="0.000000"/>
+</kw>
+<arg>20</arg>
+<status status="FAIL" start="2024-09-05T11:24:19.871695" elapsed="0.000996">201 != 20</status>
+</kw>
+<status status="FAIL" start="2024-09-05T11:24:19.179490" elapsed="0.694166">201 != 20</status>
+</test>
+<status status="FAIL" start="2024-09-05T11:24:19.046235" elapsed="0.828421"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Login">Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
