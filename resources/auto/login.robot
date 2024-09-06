@@ -13,4 +13,4 @@ Enter username and password
 API should return status code
     [Arguments]                             ${statusCode}
     Should Be Equal As Strings              ${RESPONSE.status_code}       ${statusCode}
-    Log                                     ${RESPONSE.status_code}
+    Log                                     ${RESPONSE.status_code} 
