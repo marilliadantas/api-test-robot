@@ -15,7 +15,7 @@ Connect api
 
 Post in
     [Arguments]         ${endpoint}   ${body}
-    ${response}         POST          ${BASE_URL}${endpoint} 
+    ${RESPONSE}         POST          ${BASE_URL}${endpoint} 
     ...                 json=${body}    
     ...                 headers=${HEADERS_LOGIN}
     ...                 expected_status=any
@@ -24,21 +24,21 @@ Post in
 
 Log in
     [Arguments]    ${username}    ${password}
-    ${login}=    Create Dictionary
-    IF        "${username}" != 'None'      Set To Dictionary       ${login}       username       ${username}  
-    IF        "${password}" != "None"      Set To Dictionary       ${login}       password       ${password}   
+    ${RESPONSE}=    Create Dictionary
+    IF        "${username}" != 'None'      Set To Dictionary       ${RESPONSE}       username       ${username}  
+    IF        "${password}" != "None"      Set To Dictionary       ${RESPONSE}       password       ${password}   
     RETURN     ${RESPONSE}
 
 Get in
     [Arguments]         ${endpoint}
-    ${response}         GET            ${BASE_URL}${endpoint}   
+    ${RESPONSE}         GET            ${BASE_URL}${endpoint}   
     ...                 headers=${HEADERS_LOGIN}
     
     RETURN              ${RESPONSE}
 
 Get Id In
     [Arguments]         ${endpoint}    ${id}
-    ${response}         GET            ${BASE_URL}${endpoint}/${id}
+    ${RESPONSE}         GET            ${BASE_URL}${endpoint}/${id}
     ...                 headers=${HEADERS_LOGIN}
     ...                 expected_status=any
     
