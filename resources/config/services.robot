@@ -20,21 +20,21 @@ Post in
     ...                 headers=${HEADERS_LOGIN}
     ...                 expected_status=any
     
-    RETURN              ${response}
+    RETURN              ${RESPONSE}
 
 Log in
     [Arguments]    ${username}    ${password}
     ${login}=    Create Dictionary
     IF        "${username}" != 'None'      Set To Dictionary       ${login}       username       ${username}  
     IF        "${password}" != "None"      Set To Dictionary       ${login}       password       ${password}   
-    RETURN     ${login}
+    RETURN     ${RESPONSE}
 
 Get in
     [Arguments]         ${endpoint}
     ${response}         GET            ${BASE_URL}${endpoint}   
     ...                 headers=${HEADERS_LOGIN}
     
-    RETURN              ${response}
+    RETURN              ${RESPONSE}
 
 Get Id In
     [Arguments]         ${endpoint}    ${id}
@@ -42,4 +42,4 @@ Get Id In
     ...                 headers=${HEADERS_LOGIN}
     ...                 expected_status=any
     
-    RETURN              ${response}
+    RETURN              ${RESPONSE}
