@@ -35,5 +35,5 @@ pip install --upgrade robotframework-requests
 ### ✔️ Running the Tests
 Run the tests using the following command, replacing file_name.robot with the name of the file that contains your test cases.
 ```bash
-robot -d results api/tests/nome_do_arquivo.robot
+robot -d logs tests/nome_do_arquivo.robot
 ```

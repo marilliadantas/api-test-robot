@@ -3,6 +3,7 @@ Resource            ./package.robot
 
 *** Variables ***
 ${token}
+${SCHEMA_FILE}      ${EXECDIR}/resources/schemas/usersSchema.json
 ${BASE_URL}         https://api-desafio-qa.onrender.com
 &{HEADERS_LOGIN}    accept=application/json
 ...                 Content-Type=application/json

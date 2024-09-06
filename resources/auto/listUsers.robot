@@ -8,4 +8,4 @@ Send the GET request
     Log                       ${RESPOSTA.json()}
 
 Validate the contract
-    Validate Jsonschema From File     ${RESPOSTA.json()}    ${EXECDIR}/resources/schemas/usersSchema.json
+    Validate Jsonschema From File     ${RESPOSTA.json()}       ${SCHEMA_FILE}
