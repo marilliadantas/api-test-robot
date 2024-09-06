@@ -3,7 +3,7 @@ Resource            ./package.robot
 
 *** Variables ***
 ${token}
-${SCHEMA_FILE}      ${EXECDIR}/resources/schemas/usersSchema.json
+${SCHEMA_USERS}     ${EXECDIR}/resources/schemas/usersSchema.json
 ${BASE_URL}         https://api-desafio-qa.onrender.com
 &{HEADERS_LOGIN}    accept=application/json
 ...                 Content-Type=application/json
@@ -33,5 +33,13 @@ Get in
     [Arguments]         ${endpoint}
     ${response}         GET            ${BASE_URL}${endpoint}   
     ...                 headers=${HEADERS_LOGIN}
+    
+    RETURN              ${response}
+
+Get Id In
+    [Arguments]         ${endpoint}    ${id}
+    ${response}         GET            ${BASE_URL}${endpoint}/${id}
+    ...                 headers=${HEADERS_LOGIN}
+    ...                 expected_status=any
     
     RETURN              ${response}

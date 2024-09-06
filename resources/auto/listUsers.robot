@@ -8,4 +8,11 @@ Send the GET request
     Log                       ${RESPOSTA.json()}
 
 Validate the contract
-    Validate Jsonschema From File     ${RESPOSTA.json()}       ${SCHEMA_FILE}
+    [Arguments]       ${schema}
+    Validate Jsonschema From File     ${RESPOSTA.json()}       ${schema}
+
+Send the GET request by ID
+    [Arguments]       ${id}
+    ${RESPOSTA}       Get Id In     /produtos                       ${id}
+    Set Test Variable               ${RESPOSTA}
+    Log                             ${RESPOSTA}
