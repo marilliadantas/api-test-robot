@@ -27,7 +27,7 @@ Log in
     ${login}=    Create Dictionary
     IF        "${username}" != 'None'      Set To Dictionary       ${login}       username       ${username}  
     IF        "${password}" != "None"      Set To Dictionary       ${login}       password       ${password}   
-    RETURN     ${RESPONSE}
+    RETURN     ${login}
 
 Get in
     [Arguments]         ${endpoint}
