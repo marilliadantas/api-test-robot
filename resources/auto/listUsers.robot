@@ -11,8 +11,11 @@ Validate the contract
     [Arguments]       ${schema}
     Validate Jsonschema From File     ${RESPONSE.json()}       ${schema}
 
+    
+
 Send the GET request by ID
     [Arguments]       ${id}
     ${RESPONSE}       Get Id In     /produtos                       ${id}
     Set Test Variable               ${RESPONSE}
     Log                             ${RESPONSE}
+    

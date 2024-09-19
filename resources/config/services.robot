@@ -3,7 +3,8 @@ Resource            ./package.robot
 
 *** Variables ***
 ${token}
-${SCHEMA_USERS}     ${EXECDIR}/resources/schemas/usersSchema.json
+${SCHEMA_USERS}     ${EXECDIR}/resources/schemas/users/usersSchema.json
+${SCHEMA_USERSID}   ${EXECDIR}/resources/schemas/usersID/usersSchemaID.json
 ${BASE_URL}         https://api-desafio-qa.onrender.com
 &{HEADERS_LOGIN}    accept=application/json
 ...                 Content-Type=application/json
@@ -24,10 +25,10 @@ Post in
 
 Log in
     [Arguments]    ${username}    ${password}
-    ${RESPONSE}=    Create Dictionary
-    IF        "${username}" != 'None'      Set To Dictionary       ${RESPONSE}       username       ${username}  
-    IF        "${password}" != "None"      Set To Dictionary       ${RESPONSE}       password       ${password}   
-    RETURN     ${RESPONSE}
+    ${LOGIN_BODY}=    Create Dictionary
+    IF        "${username}" != 'None'      Set To Dictionary       ${LOGIN_BODY}       username       ${username}  
+    IF        "${password}" != "None"      Set To Dictionary       ${LOGIN_BODY}       password       ${password}   
+    RETURN     ${LOGIN_BODY}
 
 Get in
     [Arguments]         ${endpoint}
