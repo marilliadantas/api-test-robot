@@ -1,0 +1,82 @@
+name: Robot Framework CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test_api:
+    name: API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          echo Instalação das depedências do Projeto
+          pip install -r requirements.txt
+
+      - name: Install Allure CLI
+        run: |
+            wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
+            tar -zxvf allure-2.13.8.tgz
+            sudo mv allure-2.13.8 /opt/allure
+            sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+      - name: Run Robot Framework tests
+        env:
+          PYTHONWARNINGS: "ignore:Unverified HTTPS request"
+        run: |
+          echo Executando os testes de API do Robot
+          robot -d logs --listener allure_robotframework tests/features || true
+
+      - name: Generate report
+        run: |
+            allure generate output/allure -o allure-report --clean
+    
+      - name: Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: robot-framework-report-api
+          path: allure-report/
+
+  deploy:
+    name: Deploy GitHub Pages 🌐
+    runs-on: ubuntu-latest
+    needs: 
+      - test_api
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://marilliadantas.github.io/api-test-robot/index.html
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with: 
+          name: robot-report-api
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
