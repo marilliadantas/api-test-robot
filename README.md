@@ -1,6 +1,6 @@
 <h1 align="center"> BACK-END AUTOMATION - API QA</h1>
 
-![STATUS](https://img.shields.io/static/v1?label=STATUS&message=EM%20CONSTRU%C3%87%C3%83O&color=yellow&style=for-the-badge)
+![STATUS](https://img.shields.io/static/v1?label=STATUS&message=%20FINALIZADO&color=GREEN&style=for-the-badge)
 
 
 ## 💬 About the project
