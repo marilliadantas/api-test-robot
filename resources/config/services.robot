@@ -52,7 +52,7 @@ HeadersAuth
     ${headersAuth}          Create Dictionary    Authorization=${token}
     Set Test Variable       ${headersAuth}
 
-Validade statusCode
+Validate statusCode
     [Arguments]    ${statusCode}
     Should Be Equal As Strings    ${RESPONSE.status_code}    ${statusCode}
     Log                           ${RESPONSE.status_code}
