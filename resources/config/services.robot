@@ -4,7 +4,7 @@ Resource            ./package.robot
 *** Variables ***
 ${token}
 ${SCHEMA_USERS}     ${EXECDIR}/resources/schemas/users/usersSchema.json
-${SCHEMA_}   ${EXECDIR}/resources/schemas/usersID/Schema.json
+${SCHEMA_}          ${EXECDIR}/resources/schemas/usersID/Schema.json
 ${BASE_URL}         https://api-desafio-qa.onrender.com
 &{HEADERS_LOGIN}    accept=application/json
 ...                 Content-Type=application/json
@@ -38,6 +38,23 @@ Post in
     ...                 expected_status=any
     RETURN              ${RESPONSE}
 
+Put in
+    [Arguments]         ${endpoint}      ${headers}      ${body}    ${id}
+    ${response}         PUT              ${base_url}${endpoint}/${id}
+    ...                 json=${body}
+    ...                 headers=${headers}
+    ...                 expected_status=any
+    
+    RETURN             ${response}
+
+Delete Id In
+    [Arguments]         ${endpoint}    ${id}
+    ${response}         DELETE         ${BASE_URL}${endpoint}/${id}
+    ...                 headers=${HEADERS_LOGIN}
+    ...                 expected_status=any
+    
+    RETURN              ${response}
+
 Validate the contract
     [Arguments]       ${schema}
     Validate Jsonschema From File     ${RESPONSE.json()}       ${schema}
@@ -56,3 +73,9 @@ Validate statusCode
     [Arguments]    ${statusCode}
     Should Be Equal As Strings    ${RESPONSE.status_code}    ${statusCode}
     Log                           ${RESPONSE.status_code}
+
+Create user success
+    Fakers
+    Send the POST request         ${FakeFirstname}     ${FakeLastname}    ${FakeEmail}
+    Set Test Variable             ${id}                ${RESPONSE.json()}[id]
+    Log                           ${id}  

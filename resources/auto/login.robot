@@ -8,7 +8,6 @@ Enter username and password
     Log      ${LOGIN_BODY}
     ${RESPONSE}    Post in    /login          ${LOGIN_BODY}
     Set Global Variable                       ${RESPONSE}
-        
 
 API should return status code
     [Arguments]                             ${statusCode}

@@ -11,9 +11,17 @@ ${FakerValor}
 *** Keywords ***
 Fakers
 
-#FakerName
-    ${FakeNome}=             FakerLibrary.Name
-    Set Test Variable        ${FakeNome}
+#FakerFullname
+    ${FakeFullname}=         FakerLibrary.Name
+    Set Test Variable        ${FakeFirstname}
+
+#FakerFirstname
+    ${FakeFirstname}=        FakerLibrary.First Name
+    Set Test Variable        ${FakeFirstname}
+
+#FakerLastname
+    ${FakeLastname}=         FakerLibrary.Last Name
+    Set Test Variable        ${FakeLastname}
 
 #FakerEmail
     ${FakeEmail}=            FakerLibrary.Email

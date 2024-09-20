@@ -22,4 +22,17 @@ Send the POST request
     ${RESPONSE}                        Post in       /users        ${BODYUSERS}
     Set Test Variable                  ${RESPONSE}
     Log                                ${RESPONSE.json()}
-    
+
+Send the PUT request
+    [Arguments]   ${name}       ${last_name}       ${email}
+    ${BODYUSERS}       Create New Users Body    ${name}    ${last_name}     ${email}
+    Log    ${BODYUSERS}
+    HeadersAuth                        ${token}
+    ${RESPONSE}                        Put in      /users    ${headersAuth}    ${BODYUSERS}     ${id}
+    Set Test Variable                  ${RESPONSE}
+    Log                                ${RESPONSE.json()}
+
+Send the DELETE request
+    ${RESPONSE}      Delete Id In     /users       ${id}
+    Set Test Variable                              ${RESPONSE}
+    Log                                            ${RESPONSE.json()}    

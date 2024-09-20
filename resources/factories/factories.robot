@@ -15,5 +15,4 @@ Create New Users Body
     Run Keyword If    "${cname}" != 'None'       Set To Dictionary    ${USERS}    name        ${cname}
     Run Keyword If    "${clast_name}" != 'None'  Set To Dictionary    ${USERS}    last_name   ${clast_name}
     Run Keyword If    "${cemail}" != 'None'      Set To Dictionary    ${USERS}    email       ${cemail}
-    [Return]    ${USERS}
-
+    RETURN    ${USERS}
