@@ -14,7 +14,7 @@ ${BASE_URL}         https://api-desafio-qa.onrender.com
 Connect api
     [Arguments]                       ${endpoint}
     Create Session    apiQA    ${BASE_URL}    ${HEADERS_LOGIN}
-
+    
 Get in
     [Arguments]         ${endpoint}
     ${RESPONSE}         GET            ${BASE_URL}${endpoint}   
