@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.12.3 on win32)" generated="20240919 22:25:45.233" rpa="false" schemaversion="4">
+<suite id="s1" name="Robot Interactive Console" source="c:\Users\sandr\.vscode\extensions\robocorp.robotframework-lsp-1.12.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
+<test id="s1-t1" name="Default Task/Test" line="5">
+<kw name="Interpreter Main Loop" library="MainLoop">
+<kw name="Send the POST request">
+<arg>${FakeNome}</arg>
+<arg>${FakeNome}</arg>
+<arg>${FakeEmail}</arg>
+<msg timestamp="20240919 22:25:45.951" level="FAIL">No keyword with name 'Send the POST request' found.</msg>
+<status status="FAIL" starttime="20240919 22:25:45.950" endtime="20240919 22:25:45.951"/>
+</kw>
+<kw name="Validade statusCode">
+<arg>201</arg>
+<status status="NOT RUN" starttime="20240919 22:25:45.952" endtime="20240919 22:25:45.952"/>
+</kw>
+<status status="PASS" starttime="20240919 22:25:45.307" endtime="20240919 22:25:48.025"/>
+</kw>
+<status status="PASS" starttime="20240919 22:25:45.306" endtime="20240919 22:25:48.025"/>
+</test>
+<status status="PASS" starttime="20240919 22:25:45.235" endtime="20240919 22:25:48.027"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Robot Interactive Console">Robot Interactive Console</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

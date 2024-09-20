@@ -1,3 +1,4 @@
 robotframework==6.1.1
 robotframework-requests
 robotframework-jsonvalidator
+robotframework-faker==5.0.0

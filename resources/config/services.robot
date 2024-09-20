@@ -4,31 +4,16 @@ Resource            ./package.robot
 *** Variables ***
 ${token}
 ${SCHEMA_USERS}     ${EXECDIR}/resources/schemas/users/usersSchema.json
-${SCHEMA_USERSID}   ${EXECDIR}/resources/schemas/usersID/usersSchemaID.json
+${SCHEMA_}   ${EXECDIR}/resources/schemas/usersID/Schema.json
 ${BASE_URL}         https://api-desafio-qa.onrender.com
 &{HEADERS_LOGIN}    accept=application/json
 ...                 Content-Type=application/json
 
 *** Keywords ***
+
 Connect api
     [Arguments]                       ${endpoint}
     Create Session    apiQA    ${BASE_URL}    ${HEADERS_LOGIN}
-
-Post in
-    [Arguments]         ${endpoint}   ${body}
-    ${RESPONSE}         POST          ${BASE_URL}${endpoint} 
-    ...                 json=${body}    
-    ...                 headers=${HEADERS_LOGIN}
-    ...                 expected_status=any
-    
-    RETURN              ${RESPONSE}
-
-Log in
-    [Arguments]    ${username}    ${password}
-    ${LOGIN_BODY}=    Create Dictionary
-    IF        "${username}" != 'None'      Set To Dictionary       ${LOGIN_BODY}       username       ${username}  
-    IF        "${password}" != "None"      Set To Dictionary       ${LOGIN_BODY}       password       ${password}   
-    RETURN     ${LOGIN_BODY}
 
 Get in
     [Arguments]         ${endpoint}
@@ -44,3 +29,30 @@ Get Id In
     ...                 expected_status=any
     
     RETURN              ${RESPONSE}
+
+Post in
+    [Arguments]         ${endpoint}     ${body}
+    ${RESPONSE}         POST            ${BASE_URL}${endpoint} 
+    ...                 headers=${HEADERS_LOGIN}
+    ...                 json=${body}
+    ...                 expected_status=any
+    RETURN              ${RESPONSE}
+
+Validate the contract
+    [Arguments]       ${schema}
+    Validate Jsonschema From File     ${RESPONSE.json()}       ${schema}
+
+Token
+    Connect api    /login
+    ${TOKEN}       Convert To String    ${RESPONSE.json()}[token]
+     Set Global Variable                ${TOKEN}
+
+HeadersAuth
+    [Arguments]             ${token} 
+    ${headersAuth}          Create Dictionary    Authorization=${token}
+    Set Test Variable       ${headersAuth}
+
+Validade statusCode
+    [Arguments]    ${statusCode}
+    Should Be Equal As Strings    ${RESPONSE.status_code}    ${statusCode}
+    Log                           ${RESPONSE.status_code}
