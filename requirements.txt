@@ -3,3 +3,4 @@ robotframework-requests
 robotframework-jsonvalidator
 robotframework-faker==5.0.0
 allure-robotframework==2.13.5
+setuptools
