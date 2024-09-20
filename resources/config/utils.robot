@@ -2,7 +2,9 @@
 Resource        package.robot
 
 *** Variables ***
-${FakeNome}
+${FakeFirstname}
+${FakeLastname}
+${FakeFullname}
 ${FakeEmail}
 ${FakeSenha}
 ${FakerDescricao}
