@@ -38,7 +38,7 @@ jobs:
           PYTHONWARNINGS: "ignore:Unverified HTTPS request"
         run: |
           echo Executando os testes de API do Robot
-          robot -d logs --listener allure_robotframework tests/features || true
+          robot -d logs --listener allure_robotframework ./tests/ || true
 
       - name: Generate report
         run: |
