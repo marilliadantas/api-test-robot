@@ -37,3 +37,9 @@ Run the tests using the following command, replacing file_name.robot with the na
 ```bash
 robot -d logs tests/nome_do_arquivo.robot
 ```
+
+### ✔️ Running tests with scenario name
+Run the tests using the following command, replacing scenario and file_name.robot with the name of the file containing your test cases.
+```bash
+robot -d logs --test 'CT05: Delete Users' .\tests\users.robot
+```
