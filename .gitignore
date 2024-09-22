@@ -1,2 +1,10 @@
 /logs
 /.vscode
+*.pyc
+*logs/
+*__pycache__/
+.vscode
+*.zip
+*.7z
+*output/
+allure-report
