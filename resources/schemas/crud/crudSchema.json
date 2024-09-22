@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "The crud schema",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "dataCadastro": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "empresa": { "type": "string" },
+        "endereco": { "type": "string" },
+        "id": { "type": "number" },
+        "idade": { "type": "number" },
+        "nome": { "type": "string" },
+        "profissao": { "type": "string" },
+        "status": { "type": "string" },
+        "telefone": { "type": "string" }
+      },
+      "required": [
+        "dataCadastro", 
+        "email", 
+        "empresa", 
+        "endereco", 
+        "id", 
+        "idade", 
+        "nome", 
+        "profissao", 
+        "status", 
+        "telefone"
+      ]
+    }
+}

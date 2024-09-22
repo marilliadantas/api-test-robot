@@ -1,6 +1,6 @@
 *** Settings ***
-Resource            ../resources/config/services.robot
-Suite Setup         Connect api   /login
+Resource                          ../resources/config/services.robot
+Suite Setup                       Connect api   /login
 
 *** Test Cases ***
 CT01: List users         
@@ -9,27 +9,43 @@ CT01: List users
     Validate statusCode           200  
 
 CT02: List user by ID
-    Create user success
-    Send the GET request by ID    /users    ${id}
+    Create Users                  Test                Automation         testautomation10@test.com
+    Send the POST request         /users              ${USERS_BODY}  
+    Send the GET request by ID    /users              ${id}
     Validate statusCode           200
-    Validate values users         Test    Automation    testautomation10@test.com
-    Send the DELETE request       /users
+    Validate values users         Test                Automation         testautomation10@test.com
+    Send the DELETE request       /users              ${id}
 
-CT03: Create Users
+CT03: List user by ID
+    Send the GET request by ID    /users              600
+    Validate statusCode           404
+    Validate message              User not found
+
+CT04: Create Users
     Fakers
-    Send the POST request         ${FakeFirstname}    ${FakeLastname}    ${FakeEmail}
+    Create Users                  ${FakeFirstname}    ${FakeLastname}    ${FakeEmail}
+    Send the POST request         /users              ${USERS_BODY}        
     Validate statusCode           201
-    Send the DELETE request       /users
+    Send the DELETE request       /users              ${id}
 
-CT04: Update Users
-    Create user success
-    Send the PUT request          Nattan    Test    nattantest@gmail.com
+CT05: Update Users
+    Create Users                  Test                Automation         testautomation10@test.com
+    Send the POST request         /users              ${USERS_BODY}
+    Create Users                  Nattan              Test               nattantest@gmail.com
+    Send the PUT request          /users              ${USERS_BODY}   
     Validate statusCode           200
-    Validate values users         Nattan    Test    nattantest@gmail.com
-    Send the DELETE request       /users
+    Validate values users         Nattan              Test               nattantest@gmail.com
+    Send the DELETE request       /users              ${id}
 
-CT05: Delete Users
-    Create user success
-    Send the DELETE request       /users
+CT06: Delete Users
+    Fakers
+    Create Users                  ${FakeFirstname}    ${FakeLastname}    ${FakeEmail}
+    Send the POST request         /users              ${USERS_BODY}
+    Send the DELETE request       /users              ${id}
     Validate statusCode           200
     Validate message              User id ${id} deleted.
+
+CT07: Delete Users Not Found
+    Send the DELETE request       /users              500
+    Validate statusCode           404
+    Validate message              User not found

@@ -2,12 +2,11 @@
 Resource                                    ../../resources/config/package.robot
 
 *** Keywords ***
-Enter username and password
+Create Login
     [Arguments]                             ${username}                  ${password}
     ${LOGIN_BODY}                           Create Login Body            username=${username}     password=${password}
+    Set Test Variable                       ${LOGIN_BODY}
     Log                                     ${LOGIN_BODY}
-    ${RESPONSE}                             Post in    /login            ${LOGIN_BODY}
-    Set Global Variable                     ${RESPONSE}
 
 API should return status code
     [Arguments]                             ${statusCode}

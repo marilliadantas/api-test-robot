@@ -11,5 +11,6 @@ Library      FakerLibrary
 Resource     services.robot
 Resource     ../auto/login.robot
 Resource     ../auto/users.robot
+Resource     ../auto/crud.robot
 Resource     ../factories/factories.robot
 Resource     utils.robot
