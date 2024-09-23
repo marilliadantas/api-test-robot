@@ -91,16 +91,6 @@ Send the PUT request
     [Arguments]                      ${endpoint}                ${body}
     ${RESPONSE}                      Put in                     ${endpoint}           ${body}      ${id}
     Set Test Variable                ${RESPONSE}
-    ${id_exists}=                    Evaluate                   "id" in ${RESPONSE.json()}
-    IF    ${id_exists}
-        Set Test Variable            ${id}                      ${RESPONSE.json()}[id]
-        Log                          ID is present: ${id}
-    ELSE
-        Set Test Variable            ${id}                      None
-        Log                          ID not present in the response
-    END
-    Log                              ${RESPONSE.json()}
-    Log                              ${id}
 
 Send the DELETE request
     [Arguments]                      ${endpoint}                ${id}
