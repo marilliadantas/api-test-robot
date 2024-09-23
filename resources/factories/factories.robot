@@ -18,14 +18,14 @@ Create New Users Body
     RETURN             ${USERS}
 
 Create New Crud Body
-    [Arguments]        ${nome}                      ${email}             ${idade}          ${telefone}     ${endereco}    
-    ...                ${profissao}                 ${empresa}
+    [Arguments]        ${name}                      ${email}             ${age}          ${phone}     ${address}    
+    ...                ${profession}                ${company}
     ${CRUD}=           Create Dictionary
-    Run Keyword If     "${nome}" != 'None'          Set To Dictionary    ${CRUD}            nome            ${nome}
+    Run Keyword If     "${name}" != 'None'          Set To Dictionary    ${CRUD}            nome            ${name}
     Run Keyword If     "${email}" != 'None'         Set To Dictionary    ${CRUD}            email           ${email}
-    Run Keyword If     "${idade}" != 'None'         Set To Dictionary    ${CRUD}            idade           ${idade}
-    Run Keyword If     "${telefone}" != 'None'      Set To Dictionary    ${CRUD}            telefone        ${telefone}
-    Run Keyword If     "${endereco}" != 'None'      Set To Dictionary    ${CRUD}            endereco        ${endereco}
-    Run Keyword If     "${profissao}" != 'None'     Set To Dictionary    ${CRUD}            profissao       ${profissao}
-    Run Keyword If     "${empresa}" != 'None'       Set To Dictionary    ${CRUD}            empresa         ${empresa}
+    Run Keyword If     "${age}" != 'None'           Set To Dictionary    ${CRUD}            idade           ${age}
+    Run Keyword If     "${phone}" != 'None'         Set To Dictionary    ${CRUD}            telefone        ${phone}
+    Run Keyword If     "${address}" != 'None'       Set To Dictionary    ${CRUD}            endereco        ${address}
+    Run Keyword If     "${profession}" != 'None'    Set To Dictionary    ${CRUD}            profissao       ${profession}
+    Run Keyword If     "${company}" != 'None'       Set To Dictionary    ${CRUD}            empresa         ${company}
     RETURN             ${CRUD}
