@@ -21,10 +21,18 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.local
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
       - name: Install dependencies
         run: |
           echo Instalação das dependências do Projeto
-          pip install -r requirements.txt
+          pip install -r requirements.txt --user
 
       - name: Install Allure CLI
         run: |
@@ -39,6 +47,22 @@ jobs:
     needs: setup_environment
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.local
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
       - name: Run Robot Framework tests
         env:
           PYTHONWARNINGS: "ignore:Unverified HTTPS request"
