@@ -36,19 +36,30 @@ jobs:
             sudo mv allure-2.13.8 /opt/allure
             sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
-  test: 
+test:
     name: Run API Tests
     runs-on: ubuntu-latest
     needs: setup
-    permissions:
-      contents: read
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies again
+        run: |
+          echo "Instalando as dependências do Projeto novamente"
+          pip install -r requirements.txt
+
       - name: Run Robot Framework tests
         env:
           PYTHONWARNINGS: "ignore:Unverified HTTPS request"
         run: |
-          echo Executando os testes de API do Robot
+          echo "Executando os testes de API do Robot"
           robot -d logs --listener allure_robotframework ./tests/ || true
 
       - name: Generate report
