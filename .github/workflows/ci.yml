@@ -48,7 +48,7 @@ jobs:
           python-version: '3.12'
 
       - name: Cache Python dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.cache/pip
@@ -64,7 +64,7 @@ jobs:
 
       - name: Generate report
         run: |
-          allure generate output/allure -o allure-report --clean
+          allure generate output/allure -o allure-report
 
       - name: Test Report
         uses: actions/upload-artifact@v4
