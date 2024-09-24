@@ -62,11 +62,11 @@ jobs:
           echo Executando os testes de API do Robot
           robot -d logs --listener allure_robotframework ./tests/ || true
 
-      - name: Restore Allure Cache
+      - name: Cache Allure Reports
         uses: actions/cache@v3
         with:
-            path: /opt/allure
-            key: ${{ runner.os }}-allure
+          path: allure-report
+          key: ${{ runner.os }}-allure-report-${{ github.sha }}
 
       - name: Generate report
         run: |
