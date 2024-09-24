@@ -20,38 +20,17 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Cache para as dependências do Python
-      - name: Cache pip dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
       - name: Install dependencies
         run: |
           echo "Instalando as dependências do projeto"
           pip install -r requirements.txt
 
-      # Cache para o Allure CLI
-      - name: Cache Allure CLI
-        uses: actions/cache@v3
-        with:
-          path: /opt/allure
-          key: allure-${{ runner.os }}-2.13.8
-          restore-keys: |
-            allure-${{ runner.os }}-
-
-      # Instalação do Allure, caso o cache não seja restaurado
       - name: Install Allure CLI
-        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          echo "Instalando Allure CLI"
-          wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
-          tar -zxvf allure-2.13.8.tgz
-          sudo mv allure-2.13.8 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure  # Garantir que Allure esteja no PATH
+            wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
+            tar -zxvf allure-2.13.8.tgz
+            sudo mv allure-2.13.8 /opt/allure
+            sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
   # Stage 2: Test
   test:
@@ -72,8 +51,8 @@ jobs:
 
       - name: Generate Allure Report
         run: |
-          echo "Gerando o relatório do Allure"
-          allure generate logs -o allure-report --clean
+            echo "Gerando o relatório do Allure"
+            allure generate logs -o allure-report --clean
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
@@ -107,8 +86,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: allure-report/
+          path: ./
 
-      - name: Deploy to Github Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
