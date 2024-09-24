@@ -21,18 +21,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Cache Python dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.local
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-
       - name: Install dependencies
         run: |
           echo Instalação das dependências do Projeto
-          pip install -r requirements.txt --user
+          pip install -r requirements.txt
 
       - name: Install Allure CLI
         run: |
