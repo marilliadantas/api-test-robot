@@ -31,7 +31,7 @@ jobs:
           wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
           tar -zxvf allure-2.13.8.tgz
           sudo mv allure-2.13.8 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          echo 'export PATH=$PATH:/opt/allure/bin' >> $GITHUB_ENV
 
   test_api:
     name: API Tests
@@ -54,12 +54,6 @@ jobs:
             ~/.cache/pip
             ~/.local
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-
-      - name: Cache Allure Reports
-        uses: actions/cache@v3
-        with:
-          path: allure-report
-          key: ${{ runner.os }}-allure-report-${{ github.sha }}
 
       - name: Run Robot Framework tests
         env:
