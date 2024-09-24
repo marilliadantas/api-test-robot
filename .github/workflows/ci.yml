@@ -8,8 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  test_api:
-    name: API Tests
+  # Stage 1: Setup (instalação das dependências)
+  setup:
+    name: Setup - Install Dependencies
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +24,25 @@ jobs:
 
       - name: Install dependencies
         run: |
-          echo Instalação das depedências do Projeto
+          echo Instalação das dependências do Projeto
           pip install -r requirements.txt
 
       - name: Install Allure CLI
         run: |
-            wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
-            tar -zxvf allure-2.13.8.tgz
-            sudo mv allure-2.13.8 /opt/allure
-            sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.tgz
+          tar -zxvf allure-2.13.8.tgz
+          sudo mv allure-2.13.8 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+  # Stage 2: Testes (executando testes de API)
+  test_api:
+    name: Run API Tests
+    runs-on: ubuntu-latest
+    needs: setup  # Este job depende do job 'setup' ser concluído
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Run Robot Framework tests
         env:
@@ -40,29 +51,33 @@ jobs:
           echo Executando os testes de API do Robot
           robot -d logs --listener allure_robotframework ./tests/ || true
 
-      - name: Generate report
+      - name: Generate Allure Report
         run: |
-            allure generate output/allure -o allure-report --clean
+          allure generate output/allure -o allure-report --clean
     
-      - name: Test Report
+      - name: Upload Test Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: robot-framework-report-api
           path: allure-report/
 
+  # Stage 3: Deploy (fazendo o deploy do relatório)
   deploy:
     name: Deploy GitHub Pages 🌐
     runs-on: ubuntu-latest
     needs: 
-      - test_api
+      - test_api  # Executa após o job de testes ser concluído
+
     permissions:
       contents: read
       pages: write
       id-token: write
+
     environment:
       name: github-pages
       url: https://marilliadantas.github.io/api-test-robot/index.html
+
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -75,7 +90,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./
+          path: ./  # Publicando o relatório baixado
 
       - name: Deploy to Github Pages
         id: deployment
