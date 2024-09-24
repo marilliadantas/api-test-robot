@@ -55,18 +55,18 @@ jobs:
             ~/.local
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
 
+      - name: Cache Allure Reports
+        uses: actions/cache@v3
+        with:
+          path: allure-report
+          key: ${{ runner.os }}-allure-report-${{ github.sha }}
+
       - name: Run Robot Framework tests
         env:
           PYTHONWARNINGS: "ignore:Unverified HTTPS request"
         run: |
           echo Executando os testes de API do Robot
           robot -d logs --listener allure_robotframework ./tests/ || true
-
-      - name: Cache Allure Reports
-        uses: actions/cache@v3
-        with:
-          path: allure-report
-          key: ${{ runner.os }}-allure-report-${{ github.sha }}
 
       - name: Generate report
         run: |
