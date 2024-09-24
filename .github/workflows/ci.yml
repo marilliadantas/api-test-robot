@@ -54,19 +54,19 @@ jobs:
             ~/.cache/pip
             ~/.local
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-    
-      - name: Restore Allure Cache
-        uses: actions/cache@v3
-        with:
-            path: /opt/allure
-            key: ${{ runner.os }}-allure
-            
+
       - name: Run Robot Framework tests
         env:
           PYTHONWARNINGS: "ignore:Unverified HTTPS request"
         run: |
           echo Executando os testes de API do Robot
           robot -d logs --listener allure_robotframework ./tests/ || true
+
+      - name: Restore Allure Cache
+        uses: actions/cache@v3
+        with:
+            path: /opt/allure
+            key: ${{ runner.os }}-allure
 
       - name: Generate report
         run: |
