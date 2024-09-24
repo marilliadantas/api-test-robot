@@ -64,7 +64,7 @@ jobs:
 
       - name: Generate report
         run: |
-          allure generate logs -o allure-report --clean
+          allure generate output/allure -o allure-report --clean
 
       - name: Test Report
         uses: actions/upload-artifact@v4
