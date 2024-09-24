@@ -19,15 +19,18 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Cache Python packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
-          echo Instalação das depedências do Projeto
+          echo "Instalando as dependências do Projeto"
           pip install -r requirements.txt
-
-      - name: Install Robot Framework
-        run: |
-          echo Instalando Robot Framework
-          pip install robotframework
 
       - name: Install Allure CLI
         run: |
@@ -50,10 +53,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install dependencies again
-        run: |
-          echo "Instalando as dependências do Projeto novamente"
-          pip install -r requirements.txt
+      - name: Cache Python packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Run Robot Framework tests
         env:
@@ -64,7 +70,7 @@ jobs:
 
       - name: Generate report
         run: |
-          allure generate output/allure -o allure-report --clean
+          allure generate logs -o allure-report --clean
 
       - name: Test Report
         uses: actions/upload-artifact@v4
